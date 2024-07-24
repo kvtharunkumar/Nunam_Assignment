@@ -3,7 +3,7 @@ import mysql.connector
 
 # DEFINE THE DATABASE CREDENTIALS
 user = 'root'
-password = 'Tharun@123'
+password = ''
 host = '127.0.0.1'
 database = 'nunam'
 

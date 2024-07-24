@@ -6,13 +6,13 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-conn = pymysql.connect(host='localhost', user='root', password='Tharun@123', db='nunam')
+conn = pymysql.connect(host='localhost', user='root', password='', db='nunam')
 # Connect to the database
 def get_connection():
     return pymysql.connect(
         host='localhost',
         user='root',
-        password='Tharun@123',
+        password='',
         database='nunam',
         cursorclass=pymysql.cursors.DictCursor  # Use DictCursor to get dictionaries instead of tuples
     )
