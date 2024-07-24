@@ -1,82 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Li-ion Cell Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
     <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
+      google.charts.load("current", { packages: ["corechart"] });
       google.charts.setOnLoadCallback(drawCharts);
 
       function drawCharts() {
-        fetch('/api/soh/all')
-          .then(response => response.json())
-          .then(data => {
+        fetch("/api/soh/all")
+          .then((response) => response.json())
+          .then((data) => {
             // Log data to verify it's correct
-            console.log('Fetched SoH data:', data);
+            console.log("Fetched SoH data:", data);
 
             // Prepare data for pie charts
             var chartData1 = google.visualization.arrayToDataTable([
-              ['Category', 'SoH'],
-              ['SoH for Cell ID 5308', data.find(item => item.cell_id === 5308).soh],
-              ['SoH for Cell ID 5329', data.find(item => item.cell_id === 5329).soh]
+              ["Category", "SoH"],
+              [
+                "SoH for Cell ID 5308",
+                data.find((item) => item.cell_id === 5308).soh,
+              ],
+              [
+                "SoH for Cell ID 5329",
+                data.find((item) => item.cell_id === 5329).soh,
+              ],
             ]);
 
             var chartData2 = google.visualization.arrayToDataTable([
-              ['Category', 'SoH'],
-              ['SoH for Cell ID 5308', data.find(item => item.cell_id === 5308).soh],
-              ['SoH for Cell ID 5329', data.find(item => item.cell_id === 5329).soh]
+              ["Category", "SoH"],
+              [
+                "SoH for Cell ID 5308",
+                data.find((item) => item.cell_id === 5308).soh,
+              ],
+              [
+                "SoH for Cell ID 5329",
+                data.find((item) => item.cell_id === 5329).soh,
+              ],
             ]);
 
             var options = {
-              title: 'State of Health (SoH) of Cells',
+              title: "State of Health (SoH) of Cells",
               is3D: true,
             };
 
-            var chart1 = new google.visualization.PieChart(document.getElementById('piechart_5308'));
+            var chart1 = new google.visualization.PieChart(
+              document.getElementById("piechart_5308")
+            );
             chart1.draw(chartData1, options);
 
-            var chart2 = new google.visualization.PieChart(document.getElementById('piechart_5329'));
+            var chart2 = new google.visualization.PieChart(
+              document.getElementById("piechart_5329")
+            );
             chart2.draw(chartData2, options);
           })
-          .catch(error => console.error('Error fetching SoH data:', error));
+          .catch((error) => console.error("Error fetching SoH data:", error));
       }
     </script>
-    <!-- Bootstrap and other dependencies -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-</head>
-<body>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
     <div class="nav-side-menu">
-        <div class="brand">Nunam</div>
-        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-        <div class="menu-list">
-            <ul id="menu-content" class="menu-content collapse out">
-                <li><a href="#"><i class="fa fa-dashboard fa-lg"></i> Dashboard</a></li>
-                <li><a href="#"><i class=""></i> Cell ID</a></li>
-                <li><a href="#"><i class=""></i> 5308</a></li>
-                <li><a href="#"><i class=""></i> 5329</a></li>
-            </ul>
-        </div>
+      <div class="brand">Nunam</div>
+      <i
+        class="fa fa-bars fa-2x toggle-btn"
+        data-toggle="collapse"
+        data-target="#menu-content"
+      ></i>
+      <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out">
+          <li>
+            <a href="#"><i class="fa fa-dashboard fa-lg"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="#"><i class=""></i> Cell ID</a>
+          </li>
+          <li>
+            <a href="/5308"><i class=""></i> 5308</a>
+          </li>
+          <li>
+            <a href="/5329"><i class=""></i> 5329</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="container">
-        <div class="col-sm-9 p-3 mt-[200px]" style="margin-left: 600px; margin-top:50px;">
-            <h1>State of Health</h1>
-        </div>
+      <div
+        class="col-sm-9 p-3 mt-[200px]"
+        style="margin-left: 600px; margin-top: 50px"
+      >
+        <h1>State of Health</h1>
+      </div>
     </div>
     <div class="container text-center">
-        <div class="row" style="margin-left: 200px; margin-top: 100px;">
-            <div class="col-sm-5 col-md-6">State of Health (SoH) for Cell ID 5308</div>
-            <div id="piechart_5308" style="width: 400px; height: 300px; display: inline-block;"></div>
-
-            <div class="col-sm-5 col-md-6">State of Health (SoH) for Cell ID 5329</div>
-            <div id="piechart_5329" style="width: 400px; height: 300px; display: inline-block;"></div>
+      <div class="row" style="margin-left: 200px; margin-top: 100px">
+        <div class="col col-sm-5 col-md-6">
+          State of Health (SoH) for Cell ID 5308
         </div>
+        <div
+          id="piechart_5308"
+          style="width: 400px; height: 300px; display: inline-block"
+        ></div>
+
+        <div class="col-sm-5 col-md-6">
+          State of Health (SoH) for Cell ID 5329
+        </div>
+        <div
+          id="piechart_5329"
+          style="width: 400px; height: 300px; display: inline-block"
+        ></div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

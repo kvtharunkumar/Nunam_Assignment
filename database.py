@@ -15,6 +15,7 @@ def get_connection():
             user=user,
             password=password,
             database=database
+            
         )
         print(f"Connection to the {host} for user {user} created successfully.")
         return con
