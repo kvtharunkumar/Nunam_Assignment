@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cell 5308 Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            fetch('/api/cell_data/5308')
+                .then(response => response.json())
+                .then(data => {
+                    const time = data.time;
+                    const voltage = data.voltage;
+                    const current = data.current;
+                    const capacity = data.capacity;
+                    const temperature = data.temperature;
+
+                    // Voltage vs Time
+                    const voltageData = google.visualization.arrayToDataTable([
+                        ['Time', 'Voltage'],
+                        ...time.map((t, i) => [t, voltage[i]])
+                    ]);
+                    const voltageOptions = {
+                        title: 'Voltage vs Time',
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+                    const voltageChart = new google.visualization.LineChart(document.getElementById('voltage_chart'));
+                    voltageChart.draw(voltageData, voltageOptions);
+
+                    // Current vs Time
+                    const currentData = google.visualization.arrayToDataTable([
+                        ['Time', 'Current'],
+                        ...time.map((t, i) => [t, current[i]])
+                    ]);
+                    const currentOptions = {
+                        title: 'Current vs Time',
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+                    const currentChart = new google.visualization.LineChart(document.getElementById('current_chart'));
+                    currentChart.draw(currentData, currentOptions);
+
+                    // Capacity vs Time
+                    const capacityData = google.visualization.arrayToDataTable([
+                        ['Time', 'Capacity'],
+                        ...time.map((t, i) => [t, capacity[i]])
+                    ]);
+                    const capacityOptions = {
+                        title: 'Capacity vs Time',
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+                    const capacityChart = new google.visualization.LineChart(document.getElementById('capacity_chart'));
+                    capacityChart.draw(capacityData, capacityOptions);
+
+                    // Temperature vs Time
+                    const temperatureData = google.visualization.arrayToDataTable([
+                        ['Time', 'Temperature'],
+                        ...time.map((t, i) => [t, temperature[i]])
+                    ]);
+                    const temperatureOptions = {
+                        title: 'Temperature vs Time',
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+                    const temperatureChart = new google.visualization.LineChart(document.getElementById('temperature_chart'));
+                    temperatureChart.draw(temperatureData, temperatureOptions);
+                })
+                .catch(error => console.error('Error fetching cell data:', error));
+        }
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1>Cell 5308 Data</h1>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-6">
+                <div id="voltage_chart" style="width: 100%; height: 500px;"></div>
+            </div>
+            <div class="col-sm-6">
+                <div id="current_chart" style="width: 100%; height: 500px;"></div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-6">
+                <div id="capacity_chart" style="width: 100%; height: 500px;"></div>
+            </div>
+            <div class="col-sm-6">
+                <div id="temperature_chart" style="width: 100%; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
