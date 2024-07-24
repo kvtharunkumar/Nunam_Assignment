@@ -69,5 +69,5 @@ This repository contains the code for a Flask-based web application that visuali
 ## Project Demonstration
 
 
-![Project Demo]('\chrome_49xq0DKP0c')
+![Description of GIF](chrome_49xq0DKP0c.gif)
 
